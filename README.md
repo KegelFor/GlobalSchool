@@ -33,7 +33,7 @@
 
 ```bash
 # Клонируем репозиторий
-git clone https://github.com/yourusername/globalschool.git
+git clone https://github.com/KegelFor/GlobalSchool.git
 cd globalschool
 
 # Создаём виртуальное окружение
