@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Регистрация - Global School{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'main/register.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="register-form">
+        <h2>Регистрация</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+        <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+    </div>
+</div>
+{% endblock %}

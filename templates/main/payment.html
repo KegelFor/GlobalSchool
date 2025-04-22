@@ -1,0 +1,17 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<h2>Оплата курса: {{ enrollment.course.title }}</h2>
+<p>Стоимость: {{ enrollment.course.price }} руб.</p>
+
+{% if enrollment.is_paid %}
+    <p style="color: green; font-weight: bold;">Вы оплатили курс!</p>
+{% else %}
+    <form method="POST">
+        {% csrf_token %}
+        <label for="amount">Введите сумму оплаты:</label>
+        <input type="number" name="amount" step="0.01" required>
+        <button type="submit">Оплатить</button>
+    </form>
+{% endif %}
+{% endblock %}

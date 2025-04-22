@@ -1,0 +1,101 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ course.title }} - Global School{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/course_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container course-container">
+    <div class="course-info">
+        <h2>{{ course.title }}</h2>
+        <p><strong>Преподаватель:</strong> {{ course.teacher.username }}</p>
+        <p><strong>Цена:</strong> {{ course.price }} ₽</p>
+        <p><strong>Описание:</strong> {{ course.description }}</p>
+
+        {% if is_enrolled %}
+            {% if enrollment.is_paid %}
+                <p style="color: green;"><b>Курс оплачен</b></p>
+            {% else %}
+                <a href="{% url 'pay_for_course' enrollment.id %}" class="btn btn-success">Оплатить</a>
+            {% endif %}
+<a href="{% url 'unsign_course' course.id %}" id="unsign-course-btn"
+   class="btn btn-danger" data-is-paid="{{ enrollment.is_paid|yesno:'true,false' }}">
+   Отменить запись
+</a>
+        {% elif user.role == "student" %}
+            <form method="post" action="{% url 'sign_course' course.id %}">
+                {% csrf_token %}
+                <button type="submit" class="course-button enroll">Записаться</button>
+            </form>
+        {% else %}
+            <p class="alert-text">Только студенты могут записываться на курсы.</p>
+        {% endif %}
+
+        {% if user.is_superuser %}
+            <form method="post" action="{% url 'delete_course' course.id %}">
+                {% csrf_token %}
+                <button type="submit" class="course-button delete">Удалить курс</button>
+            </form>
+        {% endif %}
+
+        {% if request.user.is_authenticated and request.user.role == 'student' %}
+            <a href="{% url 'complaint_create' %}?course={{ course.id }}" class="btn btn-warning">
+                Пожаловаться на курс
+            </a>
+        {% endif %}
+
+        <a href="{% url 'courses_list' %}" class="back-link">← Назад к курсам</a>
+    </div>
+
+    <div class="review-section">
+        <h3>Отзывы</h3>
+
+        <div class="review-box">
+            {% if reviews %}
+                {% for review in reviews %}
+                    <div class="review-card">
+                        <strong>{{ review.user.username }}</strong>
+                        <p>{{ review.text }}</p>
+                        <small>{{ review.created_at|date:"d.m.Y H:i" }}</small>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-reviews">Отзывов пока нет. Будьте первым!</p>
+            {% endif %}
+        </div>
+
+        {% if is_enrolled %}
+            <form method="post" action="{% url 'add_review' course.id %}" class="review-form">
+                {% csrf_token %}
+                <textarea name="text" placeholder="Напишите отзыв..." class="review-input"></textarea>
+                <button type="submit" class="review-button">Оставить отзыв</button>
+            </form>
+        {% else %}
+            <p class="alert-text">Запишитесь на курс, чтобы оставлять отзывы.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const unsignButton = document.getElementById("unsign-course-btn");
+
+    if (unsignButton) {
+        unsignButton.addEventListener("click", function (event) {
+            const isPaid = this.getAttribute("data-is-paid") === "true"; // Проверяем оплату
+            if (isPaid) {
+                event.preventDefault();
+                const confirmAction = confirm("Если вы отмените запись, деньги не вернутся. Вы уверены?");
+                if (confirmAction) {
+                    window.location.href = this.getAttribute("href");
+                }
+            }
+        });
+    }
+});
+
+</script>
+
+{% endblock %}

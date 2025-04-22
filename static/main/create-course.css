@@ -1,0 +1,54 @@
+.create-course-container {
+    max-width: 500px;
+    height: 52.1vh;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+
+}
+
+.create-course-container h2 {
+    margin-bottom: 20px;
+        color: #007bff;
+
+    font-size: 24px;
+    color: #333;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.create-course-container textarea{
+height: 100px;
+}
+.create-course-container input,
+.create-course-container select {
+    border: 1px solid #007bff;
+    background: #ffffff;
+    color: #333;
+    margin-bottom:5px;
+}
+.create-course-container button {
+    background: #007bff;
+    color: white;
+    border: 0px;
+    width:140px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.create-course-container button:hover {
+    background: #0056b3;
+}

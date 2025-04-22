@@ -1,0 +1,102 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}О нас - Global School{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'main/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="about-container">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Добро пожаловать в <span>Global School</span></h1>
+            <p>Мы создаем качественное образование для всех, кто хочет развиваться и достигать успеха!</p>
+        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVCLX5Do3EGbF3cR4cVaSUofPAqKXQ-viESQ&s" alt="Образовательный центр">
+    </section>
+
+    <section class="mission">
+        <h2>Наша миссия</h2>
+        <p>Мы верим, что образование – ключ к успеху. Наша цель – предоставить качественные, современные и доступные курсы каждому желающему.</p>
+    </section>
+
+    <section class="about-stats">
+        <div class="stat-item">
+            <h3>5000+</h3>
+            <p>Выпускников</p>
+        </div>
+        <div class="stat-item">
+            <h3>100+</h3>
+            <p>Курсов</p>
+        </div>
+        <div class="stat-item">
+            <h3>50+</h3>
+            <p>Преподавателей</p>
+        </div>
+    </section>
+
+  <section class="team">
+    <h2>Наша команда</h2>
+    <div class="team-container">
+        <div class="team-member">
+            <img src="https://s7.stc.all.kpcdn.net/family/wp-content/uploads/2021/12/den-uchitelya-3-960x540.jpg" alt="Анна Смирнова">
+            <div class="team-info">
+                <h3>Анна Смирнова</h3>
+                <p>Предподоавтель английского языка</p>
+                <p>Опыт: 7 лет</p>
+                <p>Ведущий специалист в области английского языка</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1tR2iUQBEnVtq143-GV2juqW92pex9LWlxg&s" alt="Иван Петров">
+            <div class="team-info">
+                <h3>Иван Петров</h3>
+                <p>Математик</p>
+                <p>Опыт: 5 лет</p>
+                <p>Эксперт по математике</p>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMaYjMWUXRoGZAFYhxs6wmm-CKg1O5RowqqQ&s" alt="Мария Козлова">
+            <div class="team-info">
+                <h3>Мария Козлова</h3>
+                <p>Предподователь корейского языка</p>
+                <p>Опыт: 6 лет</p>
+                <p>Специалист по языкам</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <section class="advantages">
+        <h2>Почему выбирают нас?</h2>
+        <ul>
+            <li>Современные и актуальные курсы</li>
+            <li>Опытные преподаватели</li>
+            <li>Гибкий формат обучения</li>
+            <li>Практическое обучение и проекты</li>
+            <li>Сертификаты по окончании курсов</li>
+        </ul>
+    </section>
+
+    <section class="testimonials">
+        <h2>Отзывы наших студентов</h2>
+        <div class="testimonial">
+            <p>«Я прошел курс по математике, и теперь работаю в крупной компании! Спасибо Global School!»</p>
+            <strong>Александр К.</strong>
+        </div>
+        <div class="testimonial">
+            <p>«Отличные преподаватели, много практики и полезных заданий. Курс по английскому языку был просто супер!»</p>
+            <strong>Екатерина М.</strong>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'main/about.js' %}"></script>
+{% endblock %}
+

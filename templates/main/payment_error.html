@@ -1,0 +1,7 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<h2 style="color: red;">Ошибка оплаты!</h2>
+<p>Вы ввели неправильную сумму.</p>
+<a href="{% url 'pay_for_course' enrollment_id %}"><button>Назад</button></a>
+{% endblock %}

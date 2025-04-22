@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Главная - Global School{% endblock %}
+
+{% block content %}
+
+    <section class="hero-section">
+        <h1>Добро пожаловать в Global School!</h1>
+        <p>Лучшие курсы для вашего развития и успеха</p>
+    </section>
+
+    <section class="teachers-section">
+        <h2>Наши учителя</h2>
+        <div class="teachers-list">
+            <div class="teacher-card">
+                <img src="https://s7.stc.all.kpcdn.net/family/wp-content/uploads/2021/12/den-uchitelya-3-960x540.jpg" alt="Учитель Анна Иванова">
+                <h3>Анна Иванова</h3>
+                <p>Преподаватель английского языка, 10 лет опыта. Подготовила 500+ студентов к IELTS.</p>
+            </div>
+            <div class="teacher-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1tR2iUQBEnVtq143-GV2juqW92pex9LWlxg&s" alt="Учитель Игорь Смирнов">
+                <h3>Игорь Смирнов</h3>
+                <p>Специалист по программированию, опыт 8 лет. Работал в Google и Microsoft.</p>
+            </div>
+            <div class="teacher-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMaYjMWUXRoGZAFYhxs6wmm-CKg1O5RowqqQ&s" alt="Учитель Мария Коваленко">
+                <h3>Мария Коваленко</h3>
+                <p>Эксперт по математике, 15 лет опыта. Подготовила более 1000 учеников к олимпиадам.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

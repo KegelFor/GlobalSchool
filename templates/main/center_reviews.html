@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Отзывы о Global School{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'main/reviews.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 px-4">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Отзывы о Global School</h1>
+
+    <section class="space-y-6">
+        {% for review in object_list %}
+            <div class="bg-white shadow rounded-xl p-6 border border-gray-200 relative hover:shadow-md transition">
+                <p class="text-gray-700 italic mb-2">"{{ review.text }}"</p>
+                <div class="flex justify-between items-center text-sm text-gray-500">
+                    <span>— {{ review.user.username }}</span>
+                    <span>{{ review.created_at|date:"d.m.Y H:i" }}</span>
+                </div>
+
+                {% if review.user == request.user %}
+                <form method="post" action="{% url 'delete_review' review.pk %}" class="absolute top-2 right-2">
+                    {% csrf_token %}
+                    <button type="submit" class="text-red-500 hover:text-red-700 text-sm">Удалить</button>
+                </form>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p class="text-center text-gray-500">Пока нет отзывов. Будьте первым!</p>
+        {% endfor %}
+    </section>
+
+    {% if request.user.is_authenticated %}
+    <section class="mt-10 bg-gray-50 border border-gray-200 p-6 rounded-xl">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Оставить отзыв</h2>
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <textarea name="text" placeholder="Напишите ваш отзыв..." required
+                class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent resize-none"></textarea>
+            <button type="submit"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg transition">
+                Отправить
+            </button>
+        </form>
+    </section>
+    {% else %}
+    <p class="mt-6 text-center text-gray-600">
+        Чтобы оставить отзыв, <a href="{% url 'login' %}" class="text-blue-600 hover:underline">войдите</a> в систему.
+    </p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
+{% block extra_js %}
+    <script src="{% static 'main/reviews.js' %}"></script>
+{% endblock %}

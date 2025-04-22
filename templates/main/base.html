@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Global School{% endblock %}</title>
+    <link rel="icon" href="{% static 'main/favicon.ico' %}" type="image/x-icon">
+
+    {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'main/new_password.css' %}">
+    <link rel="stylesheet" href="{% static 'main/styles-home.css' %}">
+</head>
+
+
+<div id="messages-container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<body>
+    <header class="header-container">
+            <a href="{% url 'home' %}"><h1>Global School</h1></a>
+        <nav class="nav-links">
+            <a href="{% url 'courses_list' %}">Курсы</a>
+            <a href="{% url 'about' %}">О нас</a>
+            <a href="{% url 'contacts' %}">Контакты</a>
+            <a href="{% url 'school_reviews' %}">Отзывы</a>
+        </nav>
+
+        <div class="user-info">
+{% if request.user.is_staff %}
+    <a href="{% url 'admin_complaint_list' %}" class="btn btn-warning">Все жалобы</a>
+{% elif request.user.role == 'student' %}
+    <a href="{% url 'complaint_list' %}" class="btn btn-primary">Мои жалобы</a>
+{% endif %}
+
+
+
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'profile' %}">
+                    <img src="{{ request.user.avatar.url }}" alt="Avatar" class="user-avatar">
+                </a>
+                <span>{{ request.user.username }}</span>
+                <a href="{% url 'logout' %}" class="btn-logout">Выйти</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
+            {% endif %}
+        </div>
+    </header>
+
+<main class="main-container">
+    {% block content %}
+    {% endblock %}
+</main>
+
+
+
+<footer>
+    <p>&copy; 2025 Global School | 📞 +998 77 777 77 77 |
+        <a href="https://www.instagram.com/global_school" target="_blank">Instagram</a>
+    </p>
+</footer>
+
+
+    <script src="{% static 'main/js/script.js' %}"></script>
+</body>
+</html>

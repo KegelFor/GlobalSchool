@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h2>Жалоба на курс "{{ complaint.course.title }}"</h2>
+
+<div id="chat-box">
+    {% for message in messages %}
+        <div class="message {% if message.sender == request.user %}my-message{% else %}student-message{% endif %}">
+            <strong>{{ message.sender.username }}:</strong> {{ message.text }}
+        </div>
+    {% endfor %}
+</div>
+
+{% if not complaint.is_closed %}
+    <form method="post" action="{% url 'admin_send_message' complaint.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+
+    <form method="post" action="{% url 'admin_close_complaint' complaint.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Закрыть жалобу</button>
+    </form>
+{% else %}
+    <p style="color: red;">Жалоба закрыта</p>
+{% endif %}
+
+{% endblock %}

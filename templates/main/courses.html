@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Курсы - Global School{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/courses.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Список курсов</h2>
+
+        {% if request.user.is_authenticated and request.user.role == 'admin' %}
+            <a href="{% url 'add_course' %}" class="btn btn-primary">Создать курс</a>
+        {% endif %}
+
+<form method="GET" class="filter-form">
+    <select name="teacher">
+        <option value="">Все преподаватели</option>
+        {% for teacher in teachers %}
+            <option value="{{ teacher.id }}" {% if teacher.id|stringformat:"s" == selected_teacher %}selected{% endif %}>
+                {{ teacher.username }}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Фильтровать</button>
+</form>
+
+
+        <div class="courses-grid">
+            {% for course in courses %}
+                <div class="course-card">
+                    <h3>{{ course.title }}</h3>
+                    <p>{{ course.description }}</p>
+                    <p class="price">Цена: <strong>{{ course.price }} ₽</strong></p>
+                    <p class="teacher">Преподаватель: <strong>{{ course.teacher.username }}</strong></p>
+                    <a href="{% url 'course_detail' course.pk %}" class="details-btn">Подробнее</a>
+                </div>
+            {% empty %}
+                <p class="no-courses">Курсы не найдены.</p>
+            {% endfor %}
+        </div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?teacher={{ selected_teacher }}&page=1">Первая</a>
+        <a href="?teacher={{ selected_teacher }}&page={{ page_obj.previous_page_number }}">Назад</a>
+    {% endif %}
+
+    <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?teacher={{ selected_teacher }}&page={{ page_obj.next_page_number }}">Вперёд</a>
+        <a href="?teacher={{ selected_teacher }}&page={{ page_obj.paginator.num_pages }}">Последняя</a>
+    {% endif %}
+</div>
+
+    </div>
+    <script src="{% static 'main/js/script.js' %}"></script>
+
+{% endblock %}

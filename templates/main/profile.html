@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Профиль</h2>
+    <img src="{{ user.avatar.url }}" alt="Аватар" class="profile-avatar">
+    <p class="profile-info"><strong>Имя:</strong> {{ user.username }}</p>
+    <p class="profile-info"><strong>Email:</strong> {{ masked_email }}</p>
+    <div class="profile-buttons">
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Редактировать профиль</a>
+        <a href="{% url 'change_password' %}" class="btn btn-secondary">Изменить пароль</a>
+    </div>
+</div>
+{% endblock %}

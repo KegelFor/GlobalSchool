@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Жалоба на "{{ complaint.course.title }}" - Global School{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'main/complaint.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="complaint-container">
+    <h2>Жалоба на курс "{{ complaint.course.title }}"</h2>
+
+    <div id="chat-box">
+        {% for message in chat_messages %}
+            <div class="message {% if message.sender == request.user %}my-message{% else %}admin-message{% endif %}">
+                <strong>{{ message.sender.username }}:</strong> {{ message.text }}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if not complaint.is_closed %}
+        <form method="post" class="chat-form">
+            {% csrf_token %}
+            <textarea name="text" placeholder="Введите сообщение..." required></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="close_complaint" value="true">
+            <button type="submit" class="btn btn-danger">Закрыть жалобу</button>
+        </form>
+    {% else %}
+        <p class="complaint-closed">Жалоба закрыта</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'main/complaint.js' %}"></script>
+{% endblock %}

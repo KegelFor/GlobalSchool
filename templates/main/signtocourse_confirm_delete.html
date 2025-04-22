@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% block title %}Отмена записи - Global School{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Подтверждение отмены записи</h2>
+    <p>Вы уверены, что хотите отменить запись на курс "<strong>{{ object.course.title }}</strong>"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да, отменить</button>
+        <a href="{% url 'course_detail' object.course.id %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

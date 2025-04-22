@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2 style='margin-bottom:10px;'>Мои жалобы</h2>
+<a href="{% url 'complaint_create' %}" class="btn pore" >Подать жалобу</a>
+<ul>
+    {% for complaint in complaints %}
+        <li>
+            <a href="{% url 'complaint_detail' complaint.id %}">
+                Жалоба на "{{ complaint.course.title }}" — 
+                {% if complaint.is_closed %}
+                    <span style="color: red;">Закрыта</span>
+                {% else %}
+                    <span style="color: green;">Открыта</span>
+                {% endif %}
+            </a>
+        </li>
+    {% empty %}
+        <p>У вас пока нет жалоб.</p>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h2>Список жалоб</h2>
+<ul>
+    {% for complaint in complaints %}
+        <li>
+            <a href="{% url 'admin_complaint_detail' complaint.id %}">
+                {{ complaint.user }} - {{ complaint.course.title }} ({{ complaint.created_at|date:"d.m.Y H:i" }})
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
